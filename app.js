@@ -71,6 +71,18 @@ app.put("/farms/:id", async(req, res) => {
 })
 
 
+app.delete('/farms/:id', async (req, res) => {
+    try {
+      const farm = await Farm.findByIdAndDelete(req.params.id);
+      if (!farm) {
+        return res.status(404).send("Farm not found");
+      }
+      res.send(farm);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {
