@@ -39,14 +39,13 @@ app.get("/farms/:id", async(req, res) => {
         const {id} = req.params;
         const farm = await Farm.findById(id);
         if (!farm) {
-            res.status(404).send("Farm not found");
+            return res.status(404).send("Farm not found");
         }
         res.send(farm);
     } catch (error) {
         res.status(500).send(error);
     }
 })
-
 
 app.post("/farms", async(req, res) => {
     try {
@@ -58,6 +57,18 @@ app.post("/farms", async(req, res) => {
     }
 })
 
+app.put("/farms/:id", async(req, res) => {
+    try {
+        const {id} = req.params;
+        const farm = await Farm.findByIdAndUpdate(id, req.body, {new: true, runValidators: true});
+        if (!farm) {
+            return res.status(404).send("Farm not found");
+        }
+        res.send(farm);
+    } catch(error) {
+        res.status(400).send(error);
+    }
+})
 
 
 
