@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Farm = require("../m")
+const Farm = require("./models/Farm.js");
 
 const app = express();
  
@@ -21,6 +21,18 @@ mongoose.connect(dbURL, {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+
+
+// get all the farms
+app.get("/farms", async(req, res) => {
+    try {
+        const farms = await Farm.find({});
+        res.send(farms);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+})
+
 
 
 const port = process.env.PORT || 3000
