@@ -20,7 +20,6 @@ mongoose.connect(dbURL, {
 
 
 app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride("_method"));
 
 
 // get all the farms
@@ -33,7 +32,7 @@ app.get("/farms", async(req, res) => {
     }
 })
 
-// Get a specific farm by ID
+// Get a specific farm by its id
 app.get("/farms/:id", async(req, res) => {
     try {
         const {id} = req.params;
@@ -47,6 +46,7 @@ app.get("/farms/:id", async(req, res) => {
     }
 })
 
+// Create a new farm
 app.post("/farms", async(req, res) => {
     try {
         const farm = new farm(req.body);
@@ -57,6 +57,7 @@ app.post("/farms", async(req, res) => {
     }
 })
 
+// Update a farm by its id
 app.put("/farms/:id", async(req, res) => {
     try {
         const {id} = req.params;
@@ -70,7 +71,7 @@ app.put("/farms/:id", async(req, res) => {
     }
 })
 
-
+// Delete a farm by its id
 app.delete('/farms/:id', async (req, res) => {
     try {
       const farm = await Farm.findByIdAndDelete(req.params.id);
@@ -84,7 +85,7 @@ app.delete('/farms/:id', async (req, res) => {
   });
 
 
-const port = process.env.PORT || 3000
-app.listen(port, () => {
-    console.log(`Serving on port ${port}`);
+
+app.listen(3000, () => {
+    console.log("Listening for requests on port 3000");
 });
