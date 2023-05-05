@@ -48,6 +48,17 @@ app.get("/farms/:id", async(req, res) => {
 })
 
 
+app.post("/farms", async(req, res) => {
+    try {
+        const farm = new farm(req.body);
+        await farm.save();
+        res.status(201).send(farm);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+})
+
+
 
 
 const port = process.env.PORT || 3000
