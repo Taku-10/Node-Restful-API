@@ -33,6 +33,21 @@ app.get("/farms", async(req, res) => {
     }
 })
 
+// Get a specific farm by ID
+app.get("/farms/:id", async(req, res) => {
+    try {
+        const {id} = req.params;
+        const farm = await Farm.findById(id);
+        if (!farm) {
+            res.status(404).send("Farm not found");
+        }
+        res.send(farm);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+})
+
+
 
 
 const port = process.env.PORT || 3000
